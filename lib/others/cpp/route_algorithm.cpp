@@ -868,6 +868,10 @@ void solve_small()
     }
 
     do{
+        measure_check = system_clock::now();
+        if(duration_cast<milliseconds>(measure_check - measure_start).count() > time_limit){
+            break;
+        }
         vector<P> route;        //今までのルート(アトラクション名,0:乗った,1:fp取った,2:fpを取るために待つ)
         int fp_free = 0;        //fpの制限が解除される時間
         int ptime = sttime;     //現在の時間
@@ -1221,7 +1225,7 @@ void data_output()
         if(all_ride){
             if(route_same(opttime_route,optdir_route)){
                 cand_vec.push_back(route_to_object_large(opttime_route));
-                kind.push_back("時間重視かつ移動距離重視");
+                kind.push_back("時間・移動距離重視");
             }else{
                 cand_vec.push_back(route_to_object_large(opttime_route));
                 cand_vec.push_back(route_to_object_large(optdir_route));
@@ -1243,12 +1247,12 @@ void data_output()
     	}else{
             if(route_same(optatr_route,optAatr_route)){
                 cand_vec.push_back(route_to_object_large(optatr_route));
-                kind.push_back("アトラクション数重視");
+                kind.push_back("乗車回数重視");
             }else{
                 cand_vec.push_back(route_to_object_large(optatr_route));
                 cand_vec.push_back(route_to_object_large(optAatr_route));
-                kind.push_back("アトラクション数重視");
-                kind.push_back("絶対行きたいアトラクション数重視");
+                kind.push_back("乗車回数重視");
+                kind.push_back("希望度重視");
             }
     	}
     //largeの場合
@@ -1256,7 +1260,7 @@ void data_output()
         if(all_ride){
             if(route_same(opttime_route,optdir_route)){
                 cand_vec.push_back(route_to_object_large(opttime_route));
-                kind.push_back("時間重視かつ移動距離重視");
+                kind.push_back("時間・移動距離重視");
             }else{
                 cand_vec.push_back(route_to_object_large(opttime_route));
                 cand_vec.push_back(route_to_object_large(optdir_route));
@@ -1278,12 +1282,12 @@ void data_output()
         }else{
             if(route_same(optatr_route,optAatr_route)){
                 cand_vec.push_back(route_to_object_large(optatr_route));
-                kind.push_back("アトラクション数重視");
+                kind.push_back("乗車回数重視");
             }else{
                 cand_vec.push_back(route_to_object_large(optatr_route));
                 cand_vec.push_back(route_to_object_large(optAatr_route));
-                kind.push_back("アトラクション数重視");
-                kind.push_back("絶対行きたいアトラクション数重視");
+                kind.push_back("乗車回数重視");
+                kind.push_back("希望度重視");
             }
             cout << optatr << " " << optAatr << "\n";
     	}
@@ -1370,7 +1374,7 @@ int main(int argc,char **argv)
     }
     //2n + m <= 9 が全探索の限界
     //(n:ファストパスのアトラクション数,m:ファストパスのないアトラクション数)
-    small_check = (2 * fp_atr_count + not_fp_atr_count <= 9);
+    small_check = (2 * fp_atr_count + not_fp_atr_count <= 10);
     diverge_check1 = (fp_atr_count + not_fp_atr_count <= 14);
     diverge_check2 = (fp_atr_count + not_fp_atr_count <= 12);
     diverge_check3 = (fp_atr_count + not_fp_atr_count <= 11);
@@ -1422,7 +1426,6 @@ int main(int argc,char **argv)
         cout << "\n";
     }
     */
-    solve_large();
     if(small_check){
         solve_small();
     }else{
