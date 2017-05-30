@@ -67,7 +67,7 @@
 
         #confirm-tab.tab-content{style: 'display: none'}
           .submit-wrapper
-            = submit_tag '確定する', id: 'search-submit-btn', class: 'calc-submit-btn'
+            = submit_tag '検索する', id: 'search-submit-btn', class: 'calc-submit-btn'
           #attractions-list
             - @attractions.each do |attraction|
               .decided{ id: "decided-#{attraction.algorithm_id}-id", style: 'display: none' }

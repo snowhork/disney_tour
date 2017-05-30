@@ -241,14 +241,14 @@ body {
   }
 
   #confirm-btn {
-    font-size: 24px;
+    font-size: 36px;
     margin-top: 30px;
     padding: 3px 12px;
     border-radius: 4px;
     border: solid 1px green;
     box-shadow: 0 0 4px green;
 
-    background-color: #66DD59;
+    background-color: green;
     color: white;
 
     &:hover {
@@ -263,11 +263,11 @@ body {
     @include clearfix();
     .calc-submit-btn {
       float: right;
-      background-color: rgb(73, 204, 246);
-      font-size: 30px;
+      background-color: blue;
+      font-size: 40px;
       margin-right: 10px;
       margin-bottom: 10px;
-      padding: 0px 6px;
+      padding: 4px 12px;
       border: solid 1px white;
       border-radius: 5px;
       color: white;
@@ -298,7 +298,7 @@ body {
     }
 
     .search-result-tab {
-      background-color: rgb(73, 204, 246);
+      background-color: blue;
     }
   }
 
@@ -479,7 +479,7 @@ body {
     }
     .to_must {
       color: white;
-      background-color: limegreen;
+      background-color: green;
       padding: 1px 6px;
       margin-right: 20px;
       border: solid 1px black;
