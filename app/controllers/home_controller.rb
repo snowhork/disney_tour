@@ -13,7 +13,7 @@ class HomeController < ApplicationController
     if date_params.sub(%r{(\d{4})/(\d{2})/(\d{2})}, '\1\2\3') &&
         departed_time_params.sub(%r{(\d{2}):\d{2}}, '\1')
       system('python', "#{Rails.root.to_s}/lib/others/python/predict_wait_time.py", '20170401', '8', '1')
-      logger.info("execute python predict_wait_time.py #{date_params} #{departed_time_params} #{weather_state.to_s}")
+      #logger.info("execute python predict_wait_time.py #{date_params} #{departed_time_params} #{weather_state.to_s}")
     end
 
     # input_json を生成
@@ -43,6 +43,9 @@ class HomeController < ApplicationController
     end
     logger.info(result)
 
+
+
+
     @candidates = result['candidates'].map do |candidate|
       { start: {
           id:     candidate['start']['place'],
@@ -53,8 +56,8 @@ class HomeController < ApplicationController
         attractions: candidate['attraction'].map { |attraction|
           {
             id:    attraction['ID'],
-            name: Attraction.find_by(algorithm_id: attraction['ID']).name,
-            area_id: Attraction.find_by(algorithm_id: candidate['start']['place']).area_id,
+            name:   attraction_name(attraction),
+            area_id: Attraction.find_by(algorithm_id: attraction['ID']).area_id,
             start:      attraction['start'],
             move:       attraction['move'],
             arrive:     attraction['arrive'],
@@ -91,5 +94,11 @@ class HomeController < ApplicationController
       else
         '3'
     end
+  end
+
+  def attraction_name(attraction)
+    name = Attraction.find_by(algorithm_id: attraction['ID']).name
+    
+    attraction['flag'] == 1 ? name + '(ファストパス)' : name
   end
 end
