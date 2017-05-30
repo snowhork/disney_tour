@@ -359,7 +359,7 @@ body {
     .route-bar {
       margin: 0 auto;
       border-radius: 5px;
-      width: 15px;
+      width: 5px;
       height: 200px;
       background-color: darkslategrey;
 
@@ -441,6 +441,27 @@ body {
     .move-tim　{
       color: black;
     }
+  }
+
+  #candidates-tabs {
+    @include clearfix();
+    margin: 10px 0;
+    .candidate-tab {
+      margin-left: 10px;
+      padding: 2px 5px;
+      float: left;
+      color: black;
+      font-size: 30px;
+      border: 2px solid black;
+      border-radius: 5px;
+      background-color: deepskyblue;
+    }
+  }
+
+  .description {
+    color: black;
+    font-size: 35px;
+    margin: 5px 10px;
   }
 }
 

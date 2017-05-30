@@ -44,13 +44,56 @@ item_clicked = ($obj) ->
     form_add(id)
 
 append_start_info = (data) ->
-  $('#calc-results-start').empty()
-  $('#calc-results-start').append(
-      "<div class='start-time'>" + data.start_info.start_datetime + "</div>" +
-      "<div class='attraction-name'>" + data.start_info.attraction_name + "</div>"
+  $('#candidates-tabs').empty()
+  $('#candidates-results').empty()
+
+
+  $.each(data.candidates, (i, candidate) ->
+    $('#candidates-tabs').append(
+      "<div id='candidate-tab-" + i + "' class='candidate-tab'>" + candidate.discription + "</div>"
+    )
+
+    $('#candidates-results').append(
+      "<div id='candidate-result-" + i + "' style='display: none' class='candidate-result'>" +
+      "<div class='description'>" + candidate.discription + "</div>" +
+        "<table><tbody></tbody></table>"
+    )
+
+    $tbody = $('#candidate-result-' + i + " > table > tbody" );
+    console.log($tbody)
+
+    $tbody.append(
+      "<tr> " +
+      "<td class='attraction-point area-" + candidate.start.area_id + "'>" + candidate.start.id + "</td>" +
+        "<td class='attraction-name'>" + candidate.start.name  + "</td>" +
+        "</tr>"
+    )
+
+    $.each(candidate.attractions, (j, attraction) ->
+        $tbody.append( "<tr> " +
+          "<td><div class='route-bar'></div></td>" +
+          "<td class='time-description'>" +
+          "<div class='start-time'>" + attraction.start + "発" + "</div>" +
+          "<div class='move-time'>" + attraction.move + "分移動" + "</div>" +
+    　    "<div class='arrive-time'>" + attraction.arrive + "着  " +  attraction.wait + "分待ち" + "</div>" +
+          "</td>" +
+          "<tr>" +
+          "<td class='attraction-point area-" + attraction.area_id + "'>" + attraction.id + "</td>" +
+          "<td class='attraction-name'>" + attraction.name  + "</td>" +
+          "</tr>"
+        )
+    )
+
+    $('#candidate-tab-' + i).click(
+      ->
+        $('.candidate-result').css('display', 'none')
+        $('#candidate-result-' + i).css('display', 'block')
+    )
   )
+  $('#candidate-result-' + 0).css('display', 'block')
 
 append_attraciotns_info = (data) ->
+  return
   $('#calc-results-attractions').empty()
   $.each(data.attraction_infos,
     (i, attraction) ->
@@ -199,7 +242,6 @@ $ ->
     ->
       id = $(@).data('attraction-id')
       form_delete(id)
-
   )
 
 
