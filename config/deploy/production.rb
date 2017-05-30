@@ -59,3 +59,11 @@ server '52.198.30.107', user: 'ec2-user', roles: %w{app db web}
 #     auth_methods: %w(publickey password)
 #     # password: "please use keys"
 #   }
+
+
+
+task :compile do
+  on roles(:app) do
+    execute "g++ -std=c++11 -O3 #{current_path}/lib/others/cpp/route_algorithm.cpp"
+  end
+end
