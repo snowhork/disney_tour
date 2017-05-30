@@ -1451,7 +1451,7 @@ int main(int argc,char **argv)
     */
 	data_output();
     //終了時間の測定
-    measure_end = system_clock::now();
-    cout << duration_cast<milliseconds>(measure_end-measure_start).count() << " milli sec \n";
+    // measure_end = system_clock::now();
+    // cout << duration_cast<milliseconds>(measure_end-measure_start).count() << " milli sec \n";
 	return 0;
 }
