@@ -60,7 +60,6 @@ append_start_info = (data) ->
     )
 
     $tbody = $('#candidate-result-' + i + " > table > tbody" );
-    console.log($tbody)
 
     $tbody.append(
       "<tr> " +
@@ -200,7 +199,6 @@ $ ->
           timeout: 5000,
           success:
             (data) ->
-              console.log(data)
               $('.tab-content').css('display', 'none')
               $('#search-result-tab').css('display', 'block')
               append_start_info(data)
