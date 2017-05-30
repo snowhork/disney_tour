@@ -44,35 +44,52 @@ item_clicked = ($obj) ->
     form_add(id)
 
 append_start_info = (data) ->
-  candidate = data.candidates[0]
-  $('#calc-table').empty()
-  $('#calc-table').append(
-    "<tr> " +
-    "<td class='attraction-point area-'" + candidate.start.area_id + ">" + candidate.start.id + "</td>" +
-      "<td class='attraction-name'>" + candidate.start.name  + "</td>" +
-      "</tr>"
-  )
+  $('#candidates-tabs').empty()
+  $('#candidates-results').empty()
 
-  $.each(candidate.attractions, (i, attraction) ->
-      $('#calc-table').append( "<tr> " +
-        "<td><div class='route-bar'></div></td>" +
-        "<td class='time-description'>" +
-        "<div class='start-time'>" + attraction.start + "発" + "</div>" +
-        "<div class='move-time'>" + attraction.move + "分移動" + "</div>" +
-  　    "<div class='arrive-time'>" + attraction.arrive + "着  " +  attraction.wait + "分待ち" + "</div>" +
-        "</td>" +
-        "<tr>" +
-        "<td class='attraction-point area-'" + attraction.area_id + ">" + attraction.id + "</td>" +
-        "<td class='attraction-name'>" + attraction.name  + "</td>" +
+
+  $.each(data.candidates, (i, candidate) ->
+    $('#candidates-tabs').append(
+      "<div id='candidate-tab-" + i + "' class='candidate-tab'>" + candidate.discription + "</div>"
+    )
+
+    $('#candidates-results').append(
+      "<div id='candidate-result-" + i + "' style='display: none' class='candidate-result'>" +
+      "<div class='description'>" + candidate.discription + "</div>" +
+        "<table><tbody></tbody></table>"
+    )
+
+    $tbody = $('#candidate-result-' + i + " > table > tbody" );
+
+    $tbody.append(
+      "<tr> " +
+      "<td class='attraction-point area-" + candidate.start.area_id + "'>" + candidate.start.id + "</td>" +
+        "<td class='attraction-name'>" + candidate.start.name  + "</td>" +
         "</tr>"
-      )
-  )
+    )
 
-#
-#  $('#calc-results-start').append(
-#      "<div class='start-time'>" + data.start_info.start_datetime + "</div>" +
-#      "<div class='attraction-name'>" + data.start_info.attraction_name + "</div>"
-#  )
+    $.each(candidate.attractions, (j, attraction) ->
+        $tbody.append( "<tr> " +
+          "<td><div class='route-bar'></div></td>" +
+          "<td class='time-description'>" +
+          "<div class='start-time'>" + attraction.start + "発" + "</div>" +
+          "<div class='move-time'>" + attraction.move + "分移動" + "</div>" +
+    　    "<div class='arrive-time'>" + attraction.arrive + "着  " +  attraction.wait + "分待ち" + "</div>" +
+          "</td>" +
+          "<tr>" +
+          "<td class='attraction-point area-" + attraction.area_id + "'>" + attraction.id + "</td>" +
+          "<td class='attraction-name'>" + attraction.name  + "</td>" +
+          "</tr>"
+        )
+    )
+
+    $('#candidate-tab-' + i).click(
+      ->
+        $('.candidate-result').css('display', 'none')
+        $('#candidate-result-' + i).css('display', 'block')
+    )
+  )
+  $('#candidate-result-' + 0).css('display', 'block')
 
 append_attraciotns_info = (data) ->
   return
@@ -182,7 +199,6 @@ $ ->
           timeout: 5000,
           success:
             (data) ->
-              console.log(data)
               $('.tab-content').css('display', 'none')
               $('#search-result-tab').css('display', 'block')
               append_start_info(data)
@@ -241,6 +257,9 @@ $ ->
   MM = toTargetDigits(minutes, 2)
   $('.departed_hour').val(hh + ":" + MM)
   $('.finished_hour').val(hh + ":" + MM)
+  $('.departed_hour').val("08:00")
+  $('.finished_hour').val("22:00")
+
 
 
   $('#ui-tab li').click(

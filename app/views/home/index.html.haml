@@ -43,8 +43,6 @@
         .set-time-label
           #confirm-btn.calc-submit-btn
             確認
-          -#= submit_tag 'サーチ', id: 'search-submit-btn', class: 'calc-submit-btn'
-
 
 
     .sidebar#ui-tab
@@ -69,7 +67,7 @@
 
         #confirm-tab.tab-content{style: 'display: none'}
           .submit-wrapper
-            = submit_tag '確定する', id: 'search-submit-btn', class: 'calc-submit-btn'
+            = submit_tag '検索する', id: 'search-submit-btn', class: 'calc-submit-btn'
           #attractions-list
             - @attractions.each do |attraction|
               .decided{ id: "decided-#{attraction.algorithm_id}-id", style: 'display: none' }
@@ -84,34 +82,43 @@
 
         #search-result-tab.tab-content{style: 'display: none'}
           #calc-results
-            %table
-              %tbody#calc-table
-                %tr
-                  %td
-                    .attraction-point.area-0
-                      1
-                  %td
-                    .attraction-name
-                      カリブの海賊
-
-                - (1..3).each do |_|
-                  %tr
-                    %td
-                      .route-bar
-                    %td.time-description
-                      .start-time
-                        12:10 発
-                      .move-time
-                        10分移動
-                      .arrive-time
-                        12:20着　20分待ち
-                  %tr
-                    %td
-                      .attraction-point.area-0
-                        1
-                    %td
-                      .attraction-name
-                        カリブの海賊
+            #candidates-tabs
+              -##candidate-tab-1.candidate-tab
+              -#  候補１
+              -##candidate-tab-2.candidate-tab
+              -#  候補２
+            #candidates-results
+              -##candidate-result-1
+              -#  .description
+              -#    経路最短優先
+              -#  %table
+              -#    %tbody#calc-table
+              -#      %tr
+              -#        %td
+              -#          .attraction-point.area-0
+              -#            1
+              -#        %td
+              -#          .attraction-name
+              -#            カリブの海賊
+              -#
+              -#      - (1..3).each do |_|
+              -#        %tr
+              -#          %td
+              -#            .route-bar
+              -#          %td.time-description
+              -#            .start-time
+              -#              12:10 発
+              -#            .move-time
+              -#              10分移動
+              -#            .arrive-time
+              -#              12:20着　20分待ち
+              -#        %tr
+              -#          %td
+              -#            .attraction-point.area-0
+              -#              1
+              -#          %td
+              -#            .attraction-name
+              -#              カリブの海賊
 
 
           -##calc-results-start
