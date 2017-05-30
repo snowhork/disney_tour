@@ -24,7 +24,7 @@ class HomeController < ApplicationController
                 list:  params[:attraction_ids].map { |k, v| { ID: k.to_i, hope: v.to_i} },
                 start: params[:departed_time],
                 end:   params[:finished_time],
-                position: 1
+                position: 0
             }
         }
 
@@ -50,7 +50,7 @@ class HomeController < ApplicationController
       { start: {
           id:     candidate['start']['place'],
           area_id: Attraction.find_by(algorithm_id: candidate['start']['place']).area_id,
-          name: Attraction.find_by(algorithm_id: candidate['start']['place']).name,
+          name: '出発' || Attraction.find_by(algorithm_id: candidate['start']['place']).name,
           time:  candidate['start']['time']
         },
         attractions: candidate['attraction'].map { |attraction|
