@@ -1,6 +1,6 @@
 require 'csv'
 require 'time'
-filename_from="predicrt_diff_"+ARGV[0].to_s+".csv"
+filename_from="predict_diff_"+ARGV[0].to_s+".csv"
 filename_to="predict_"+ARGV[0].to_s+".csv"
 time="hoge"
 ride_s="hoge"
@@ -29,6 +29,9 @@ to_csv = CSV.generate do |csv|
         time=time+300
         ride_s=ride_s+origin[1].to_i*60
         ride_e=ride_s+3600
+        if (ride_s-time <= 3600 || Time.parse("21:30") <= ride_s) && time >Time.parse("12:00")  then
+            break;
+        end
         new_row = [
           date,
           time.strftime("%H:%M"),
