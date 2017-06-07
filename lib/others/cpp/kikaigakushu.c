@@ -1,3 +1,8 @@
+//03-160603
+//松尾洵
+//j-matsuo.aicj06@hotmail.co.jp
+//jun-matsuo076@g.ecc.u-tokyo.ac.jp
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -27,6 +32,7 @@
  char s2[256];
  char s3[256];
  char *abs_path;
+ char *date_path;
 
 void check(void *y)
 {
@@ -136,11 +142,16 @@ void readdata()
  
  FILE *fp;
  char input_path[101];
+ char input_path2[101];
  strncpy(input_path,abs_path,100);
- char str[] = "input/pred_wait_time.csv";
+ strncpy(input_path2,date_path,100);
+ char str[] = "input/pred_wait_time_";
+ char str2[] = ".csv";
  strcat(input_path,str);
+ strcat(input_path,input_path2);
+ strcat(input_path,str2);
  if ((fp = fopen(input_path, "r")) == NULL) {
-  printf("file open error!!\n");
+  printf("file open error!!\n%s\n",input_path);
   exit(EXIT_FAILURE);
  }
  l=-1;						//行が何番目か
@@ -219,6 +230,7 @@ void datafree()
 int main(int argc,char **argv)
 {
  abs_path = argv[1];
+ date_path = argv[2];
  
  init_genrand(10);
  //各変数malloc
