@@ -33,6 +33,8 @@
  char s3[256];
  char *abs_path;
  char *date_path;
+ char *in_time;
+ char *out_time;
 
 void check(void *y)
 {
@@ -231,6 +233,8 @@ int main(int argc,char **argv)
 {
  abs_path = argv[1];
  date_path = argv[2];
+ in_time = argv[3];
+ out_time = argv[4];
  
  init_genrand(10);
  //各変数malloc
@@ -341,8 +345,12 @@ int main(int argc,char **argv)
  //writedata();
  //return;
  
- to=540;					//開園時刻(hour*60+min)
- tc=1320;					//閉園時刻(hour*60+min)1320
+ char st0[101];
+ strncpy(st0,in_time,100);
+ to=atoi(st0);					//開園時刻(hour*60+min)
+ 
+ strncpy(st0,out_time,100);
+ tc=atoi(st0);					//閉園時刻(hour*60+min)
  t=0+to;
  te=20;
  d2=-1;
@@ -362,6 +370,8 @@ int main(int argc,char **argv)
  fprintf(outputfile, "{\"attraction\":[");
  
  t+=10;
+ 
+ int hour,min;
  
  while(t<tc){
   
@@ -395,8 +405,8 @@ int main(int argc,char **argv)
   reward();					//rewardを更新
   
   fprintf(outputfile, "{\"ID\":%d,\"arrive\":\"",d);
-  int hour=t/60;
-  int min=t-(hour*60);
+  hour=t/60;
+  min=t-(hour*60);
   if (hour < 10) {
    fprintf(outputfile, "0%d:",hour);
   } else {
@@ -483,8 +493,22 @@ int main(int argc,char **argv)
  
  fprintf(outputfile, "],");
  fprintf(outputfile, "\"discription\":\"AIのおすすめ\",");
- fprintf(outputfile, "\"start\":{ \"place\":0, \"time\": \"09:00\"}}");
- fprintf(outputfile,"]}");
+ fprintf(outputfile, "\"start\":{ \"place\":0, \"time\": \"");
+ 
+ hour=to/60;
+ min=to-(hour*60);
+ if (hour < 10) {
+  fprintf(outputfile, "0%d:",hour);
+ } else {
+  fprintf(outputfile, "%d:",hour);
+ }
+ if (min < 10) {
+  fprintf(outputfile, "0%d",min);
+ } else {
+  fprintf(outputfile, "%d",min);
+ }
+ 
+ fprintf(outputfile,"\"}}]}");
  fclose(outputfile);
  
  datafree();
