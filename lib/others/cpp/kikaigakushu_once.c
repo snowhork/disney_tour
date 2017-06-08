@@ -382,7 +382,7 @@ int main(int argc,char **argv)
   if (nar!=-1) fprintf(outputfile, ",");
   if (data[d][(t/60)-7]==999) {
    printf("error");
-   return;
+   return 0;
   }
   tnext=t+data[d][(t/60)-7]+te;
     
@@ -470,7 +470,7 @@ int main(int argc,char **argv)
    }
    if (Qmax<-9999998||Qmax>9999998) {
     printf("Qmax発散");
-    return;
+    return 0;
    }
      
    //printf("k%d t%d r%f M%f nar%d Q%f s%f j%d W%f\n", k, t, r, Qmax, nar, Q[nar], s[j], j, W[nar][j]);
