@@ -257,8 +257,8 @@ $ ->
   MM = toTargetDigits(minutes, 2)
   $('.departed_hour').val(hh + ":" + MM)
   $('.finished_hour').val(hh + ":" + MM)
-  $('.departed_hour').val("08:00")
-  $('.finished_hour').val("22:00")
+  $('.departed_hour').val("09:00")
+  $('.finished_hour').val("20:00")
 
 
 
