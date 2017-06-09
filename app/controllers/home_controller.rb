@@ -9,7 +9,7 @@ class HomeController < ApplicationController
   def calc
     # pythonコール
     date_params =  params[:departed][:date].clone
-    date_params = '2017/04/29'
+    #date_params = '2017/04/29'
     departed_time_params = params[:departed_time].clone
     finished_time_params = params[:finished_time].clone
 
