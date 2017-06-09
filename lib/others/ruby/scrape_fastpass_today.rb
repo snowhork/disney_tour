@@ -30,7 +30,7 @@ Anemone.crawl("http://tokyodisneyresort.info/fastpass.php?park=land", depth_limi
                     finish << time.slice(6,5)
                 end
             end
-            filename=site_id[id].to_s+"_fastpass_today.csv"
+            filename="today_"+site_id[id].to_s+".csv"
             CSV.open(filename, "w") do |test|
                 i=0
                 get.each do |m|
