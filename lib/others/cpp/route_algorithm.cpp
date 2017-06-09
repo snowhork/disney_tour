@@ -1314,8 +1314,8 @@ void data_output()
     }
     //cand_aryには候補の数だけ要素がある
     obj_res.insert(make_pair("candidates",picojson::value(cand_ary)));  //候補１つ分全部のary
-    current_directory += "output/route_output_"
-    current += uuid + ".json";
+    current_directory += "output/route_output_";
+    current_directory += uuid + ".json";
     ofstream ofs(current_directory,ios::out);
 	ofs << picojson::value(obj_res).serialize(true) << endl; // trueだと整形あり
 	//printf("'開始'1:場所(ID)　2,3:時刻(?時?分)\n");
