@@ -43,7 +43,7 @@ class HomeController < ApplicationController
     depareted_minute = to_minute(departed_time_params)
     finished_minute = to_minute(finished_time_params)
 
-    logger.info("date_params: #{date_params}, departed_minute: #{depareted_minute}, finished_minute: #{finished_minute}", uuid)
+    logger.info("date_params: #{date_params}, departed_minute: #{depareted_minute}, finished_minute: #{finished_minute}, uuid: uuid")
     system("#{Rails.root.to_s}/lib/others/cpp/kikaigakushu_once.out", "#{Rails.root.to_s}/lib/others/cpp/", date_params, depareted_minute, finished_minute, uuid)
 
     # 結果読み込み
