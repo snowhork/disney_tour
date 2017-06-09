@@ -61,7 +61,8 @@ bool diverge_check2;            //trueなら分岐を増やす
 bool diverge_check3;            //trueなら分岐を増やす
 double time_limit;              //制限時間(ms)
 system_clock::time_point measure_start,measure_check,measure_end;   //実行時間の測定
-string current_directory;
+string current_directory;       //実行ファイルの存在するディレクトリ
+string date;                    //日付
 
 
 vector<string> split(string& input, char delimiter)
@@ -268,11 +269,16 @@ void predict_data_input()
 //データの読み込み(データ班から)
 {
     //待ち時間の読み込み
-    string str = current_directory + "input/wait_time_test.csv";
+    string str = current_directory + "input/pred_wait_time.csv";
 	ifstream wait(str);
     if(!wait){
         cout << "入力エラー";
         return;
+    }
+    for(int i = 0; i < MAX_N; i++){
+        for(int j = 0; j < MAX_S; j++){
+            wtime[i][j] = INF;
+        }
     }
     string line;
     int row = 0;
@@ -285,6 +291,9 @@ void predict_data_input()
             wait_start = (sttime / step_in_hour) * step_in_hour;
 			vector<int> intvec;
 			for(int i = 0; i < strvec.size(); i++){
+                if(strvec[i] == ""){
+                    continue;
+                }
 				intvec.push_back(stoi(strvec[i]));
 			}
 			for(int i = 1; i < intvec.size(); i++){
@@ -1224,13 +1233,13 @@ void data_output()
     if(small_check){
         if(all_ride){
             if(route_same(opttime_route,optdir_route)){
-                cand_vec.push_back(route_to_object_large(opttime_route));
+                cand_vec.push_back(route_to_object_small(opttime_route));
                 kind.push_back("時間・移動距離重視");
             }else{
-                cand_vec.push_back(route_to_object_large(opttime_route));
-                cand_vec.push_back(route_to_object_large(optdir_route));
+                cand_vec.push_back(route_to_object_small(opttime_route));
+                cand_vec.push_back(route_to_object_small(optdir_route));
                 if(!route_same(opttime_route,opttimedir_route) && !route_same(optdir_route,opttimedir_route)){
-                    cand_vec.push_back(route_to_object_large(opttimedir_route));
+                    cand_vec.push_back(route_to_object_small(opttimedir_route));
                     kind.push_back("時間重視");
                     kind.push_back("移動距離重視");
                     kind.push_back("おすすめ");
@@ -1246,11 +1255,11 @@ void data_output()
             }
     	}else{
             if(route_same(optatr_route,optAatr_route)){
-                cand_vec.push_back(route_to_object_large(optatr_route));
-                kind.push_back("乗車回数重視");
+                cand_vec.push_back(route_to_object_small(optatr_route));
+                kind.push_back("乗車回数・希望度重視");
             }else{
-                cand_vec.push_back(route_to_object_large(optatr_route));
-                cand_vec.push_back(route_to_object_large(optAatr_route));
+                cand_vec.push_back(route_to_object_small(optatr_route));
+                cand_vec.push_back(route_to_object_small(optAatr_route));
                 kind.push_back("乗車回数重視");
                 kind.push_back("希望度重視");
             }
@@ -1315,11 +1324,8 @@ int main(int argc,char **argv)
 {
     //スタート時間の測定
     measure_start = system_clock::now();
-
-    for(int i = 1; i < argc; i++){
-        current_directory = argv[i];
-        break;
-    }
+    current_directory = argv[1];
+    date = argv[2];
 
     init();
 
@@ -1374,10 +1380,11 @@ int main(int argc,char **argv)
     }
     //2n + m <= 9 が全探索の限界
     //(n:ファストパスのアトラクション数,m:ファストパスのないアトラクション数)
-    small_check = (2 * fp_atr_count + not_fp_atr_count <= 10);
-    diverge_check1 = (fp_atr_count + not_fp_atr_count <= 14);
-    diverge_check2 = (fp_atr_count + not_fp_atr_count <= 12);
-    diverge_check3 = (fp_atr_count + not_fp_atr_count <= 11);
+    small_check = (2 * fp_atr_count + not_fp_atr_count <= 11);
+    cout << fp_atr_count << " " << not_fp_atr_count << "\n";
+    diverge_check1 = (fp_atr_count + not_fp_atr_count <= 15);
+    diverge_check2 = (fp_atr_count + not_fp_atr_count <= 14);
+    diverge_check3 = (fp_atr_count + not_fp_atr_count <= 12);
     /* //for debug
     for(int i = 0; i < num_atr; i++){
         cout << fp_flag[i] << " ";
@@ -1451,7 +1458,7 @@ int main(int argc,char **argv)
     */
 	data_output();
     //終了時間の測定
-    // measure_end = system_clock::now();
-    // cout << duration_cast<milliseconds>(measure_end-measure_start).count() << " milli sec \n";
+    measure_end = system_clock::now();
+    cout << duration_cast<milliseconds>(measure_end-measure_start).count() << " milli sec \n";
 	return 0;
 }
