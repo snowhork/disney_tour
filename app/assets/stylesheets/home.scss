@@ -169,7 +169,7 @@ body {
   .attraction-name {
     text-align: left;
 
-    color: white;
+    color: black;
     padding-left: 16px;
     margin: 2px 0;
     border-radius: 8px;
@@ -303,7 +303,7 @@ body {
   }
 
   color: white;
-  background-color: #88EC7D;
+  background-color: #D8FDD4;
   overflow-y: scroll;
   margin-top: 20px;
 
@@ -321,6 +321,7 @@ body {
     margin: 4px 6px;
     opacity: 0.9;
     cursor: pointer;
+
 
     &:hover {
       opacity: 0.99;
@@ -506,28 +507,29 @@ body {
   }
 }
 
-.area-6-list {
-  //position: absolute;
-  //bottom: 0;
-  //right: 0;
+.area-6-title {
   background-color: darken($area-6-color, 5%);
+}
+
+.area-6-list {
+  border: 3px solid darken($area-6-color, 5%);
 
   .selected {
     //background-color: lighten($area-6-color, 17%);
   }
 
   .decided {
-    background-color: lighten($area-6-color, 17%);
+    background-color: lighten($area-6-color, 43%);
   }
 
 }
 
-.area-5-list {
-
-  //position: absolute;
-  //bottom: 0;
-  //right: 0;
+.area-5-title {
   background-color: darken($area-5-color, 5%);
+}
+
+.area-5-list {
+  border: 3px solid darken($area-5-color, 5%);
 
   .selected {
     //background-color: lighten($area-5-color, 10%);
@@ -538,19 +540,18 @@ body {
   }
 }
 
-.area-4-list {
-
-  //position: absolute;
-  //bottom: 0;
-  //right: 0;
+.area-4-title {
   background-color: darken($area-4-color, 5%);
+}
 
+.area-4-list {
+  border: 3px solid darken($area-4-color, 5%);
   .selected {
     //background-color: lighten($area-4-color, 10%);
   }
 
   .decided {
-    background-color: lighten($area-4-color, 10%);
+    background-color: lighten($area-4-color, 30%);
   }
 }
 
@@ -564,27 +565,28 @@ body {
 //  width: $attractions-right-list-width;
 //}
 
+.area-0-title {
+  background-color: darken($area-0-color, 4%);
+}
+
 .area-0-list {
-  //position: absolute;
-  //bottom: 0;
-  //right: 0;
-  background-color: darken($area-0-color, 10%);
+  border: 3px solid darken($area-0-color, 4%);
 
   .selected {
     //background-color: lighten($area-0-color, 7%);
   }
 
   .decided {
-    background-color: lighten($area-0-color, 7%);
+    background-color: lighten($area-0-color, 12%);
   }
 }
 
-.area-1-list {
-
-  //position: absolute;
-  //bottom: 0;
-  //right: 0;
+.area-1-title {
   background-color: darken($area-1-color, 4%);
+}
+
+.area-1-list {
+  border: 3px solid darken($area-1-color, 4%);
 
   .selected {
     // background-color: lighten($area-1-color, 8%);
@@ -595,31 +597,31 @@ body {
   }
 }
 
-.area-2-list {
-
-  //position: absolute;
-  //bottom: 0;
-  //right: 0;
+.area-2-title {
   background-color: darken($area-2-color, 5%);
+}
+
+.area-2-list {
+  border: 3px solid darken($area-2-color, 5%);
 
   .selected {
     //background-color: lighten($area-2-color, 8%);
   }
 
   .decided {
-    background-color: lighten($area-2-color, 8%);
+    background-color: lighten($area-2-color, 32%);
   }
 }
 
-.area-3-list {
-
-  //position: absolute;
-  //bottom: 0;
-  //right: 0;
+.area-3-title {
   background-color: darken($area-3-color, 9%);
+}
+
+.area-3-list {
+  border: 3px solid darken($area-3-color, 9%);
 
   .selected {
-    background-color: lighten($area-3-color, 4%);
+    //background-color: lighten($area-3-color, 4%);
   }
 
   .decided {
