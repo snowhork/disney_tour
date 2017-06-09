@@ -63,6 +63,7 @@ double time_limit;              //制限時間(ms)
 system_clock::time_point measure_start,measure_check,measure_end;   //実行時間の測定
 string current_directory;       //実行ファイルの存在するディレクトリ
 string date;                    //日付
+string uuid;                    //一意なキー
 
 
 vector<string> split(string& input, char delimiter)
@@ -202,7 +203,8 @@ void fp_time_read(int atr_id, string& file)
 void user_data_input()
 //データの読み込み(ユーザーから)
 {
-    string str = current_directory + "input/user_input.json";
+    string str = current_directory + "input/user_input_";
+    str += uuid + ".json";
 	ifstream ifs(str, ios::binary);
     if(!ifs){
         cout << "入力エラー";
@@ -269,7 +271,8 @@ void predict_data_input()
 //データの読み込み(データ班から)
 {
     //待ち時間の読み込み
-    string str = current_directory + "input/pred_wait_time.csv";
+    string str = current_directory + "input/pred_wait_time_";
+    str += date + ".csv";
 	ifstream wait(str);
     if(!wait){
         cout << "入力エラー";
@@ -291,7 +294,7 @@ void predict_data_input()
             wait_start = (sttime / step_in_hour) * step_in_hour;
 			vector<int> intvec;
 			for(int i = 0; i < strvec.size(); i++){
-                if(strvec[i] == ""){
+                if(strvec[i] == "" || strvec[i] == "nan"){
                     continue;
                 }
 				intvec.push_back(stoi(strvec[i]));
@@ -1311,7 +1314,8 @@ void data_output()
     }
     //cand_aryには候補の数だけ要素がある
     obj_res.insert(make_pair("candidates",picojson::value(cand_ary)));  //候補１つ分全部のary
-    current_directory += "output/route_output.json";
+    current_directory += "output/route_output_"
+    current += uuid + ".json";
     ofstream ofs(current_directory,ios::out);
 	ofs << picojson::value(obj_res).serialize(true) << endl; // trueだと整形あり
 	//printf("'開始'1:場所(ID)　2,3:時刻(?時?分)\n");
@@ -1326,6 +1330,7 @@ int main(int argc,char **argv)
     measure_start = system_clock::now();
     current_directory = argv[1];
     date = argv[2];
+    uuid = argv[3];
 
     init();
 
