@@ -1,7 +1,3 @@
-//03-160603
-//松尾洵
-//j-matsuo.aicj06@hotmail.co.jp
-//jun-matsuo076@g.ecc.u-tokyo.ac.jp
 
 #include <stdio.h>
 #include <string.h>
