@@ -55,7 +55,7 @@
           - @areas.each do |area|
             .acMenu
               %dt.area-name{ id: "area-#{area.id}-name",
-                            class: "area-#{area.id}-list" }
+                            class: "area-#{area.id}-title" }
                 = area.name
               .attractions-list{ class: "area-#{area.id}-list" }
                 - area.attractions.each do |attraction|
