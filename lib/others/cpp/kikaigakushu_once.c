@@ -1,7 +1,3 @@
-//03-160603
-//松尾洵
-//j-matsuo.aicj06@hotmail.co.jp
-//jun-matsuo076@g.ecc.u-tokyo.ac.jp
 
 #include <stdio.h>
 #include <string.h>
@@ -35,6 +31,7 @@
  char *date_path;
  char *in_time;
  char *out_time;
+ char *outputid;
 
 void check(void *y)
 {
@@ -235,6 +232,7 @@ int main(int argc,char **argv)
  date_path = argv[2];
  in_time = argv[3];
  out_time = argv[4];
+ outputid = argv[5];
  
  init_genrand(10);
  //各変数malloc
@@ -356,11 +354,17 @@ int main(int argc,char **argv)
  d2=-1;
  nar=-1;
  
+ char outputid2[101];
+ strncpy(outputid2,outputid,100);
+ 
  FILE *outputfile;
  char output_path[101];
  strncpy(output_path,abs_path,100);
- char str[] = "output/route_output2.json";
+ char str[] = "output/route_output2_";
+ char str9[] = ".json";
  strcat(output_path,str);
+ strcat(output_path,outputid2);
+ strcat(output_path,str9);
  outputfile=fopen(output_path,"w");
  if (outputfile==NULL){
   printf("cannot open");

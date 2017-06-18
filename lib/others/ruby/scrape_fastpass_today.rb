@@ -11,7 +11,7 @@ finish=[]
 id=0
 day="ほげ"
 flag=0
-site_id={0 => 110,1 => 163 ,2 => 123 ,3 => 112 ,5 => 134,6 => 133 ,7 => 132 ,8 => 120}
+site_id={"ビッグ" => 110,"スプラ" => 163 ,"モンス" => 123 ,"プーさ" => 112 ,"バズ・" => 134,"スター" => 133 ,"スペー" => 132 ,"ホーン" => 120}
 Anemone.crawl("http://tokyodisneyresort.info/fastpass.php?park=land", depth_limit: 1) do |anemone|
     anemone.on_pages_like(PATTERN) do |page|
         if id != 4 then
@@ -30,7 +30,8 @@ Anemone.crawl("http://tokyodisneyresort.info/fastpass.php?park=land", depth_limi
                     finish << time.slice(6,5)
                 end
             end
-            filename="today_"+site_id[id].to_s+".csv"
+            title = page.doc.title.slice(0,3)
+            filename="today_"+site_id[title].to_s+".csv"
             CSV.open(filename, "w") do |test|
                 i=0
                 get.each do |m|

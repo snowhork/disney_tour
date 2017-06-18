@@ -19,7 +19,9 @@ class HomeController < ApplicationController
       return
     end
 
-    user_input_json_path = "#{Rails.root.to_s}/lib/others/cpp/input/user_input.json"
+    uuid =  `uuidgen`.chomp
+
+    user_input_json_path = "#{Rails.root.to_s}/lib/others/cpp/input/user_input_#{uuid}.json"
     user_input =
         {
             user: {
@@ -36,22 +38,22 @@ class HomeController < ApplicationController
     end
 
     # Cコール
-    system("#{Rails.root.to_s}/lib/others/cpp/route_algorithm.out", "#{Rails.root.to_s}/lib/others/cpp/", date_params)
+    system("#{Rails.root.to_s}/lib/others/cpp/route_algorithm.out", "#{Rails.root.to_s}/lib/others/cpp/", date_params, uuid)
 
     depareted_minute = to_minute(departed_time_params)
     finished_minute = to_minute(finished_time_params)
 
-    logger.info("date_params: #{date_params}, departed_minute: #{depareted_minute}, finished_minute: #{finished_minute}")
-    system("#{Rails.root.to_s}/lib/others/cpp/kikaigakushu_once.out", "#{Rails.root.to_s}/lib/others/cpp/", date_params, depareted_minute, finished_minute)
+    logger.info("date_params: #{date_params}, departed_minute: #{depareted_minute}, finished_minute: #{finished_minute}, uuid: uuid")
+    system("#{Rails.root.to_s}/lib/others/cpp/kikaigakushu_once.out", "#{Rails.root.to_s}/lib/others/cpp/", date_params, depareted_minute, finished_minute, uuid)
 
     # 結果読み込み
     result = {}
-    File.open("#{Rails.root.to_s}/lib/others/cpp/output/route_output.json") do |file|
+    File.open("#{Rails.root.to_s}/lib/others/cpp/output/route_output_#{uuid}.json") do |file|
       result = JSON.load(file)
     end
 
     result2 = {}
-    File.open("#{Rails.root.to_s}/lib/others/cpp/output/route_output2.json") do |file|
+    File.open("#{Rails.root.to_s}/lib/others/cpp/output/route_output2_#{uuid}.json") do |file|
       result2 = JSON.load(file)
     end
 
